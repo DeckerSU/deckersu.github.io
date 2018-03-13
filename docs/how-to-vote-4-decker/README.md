@@ -29,9 +29,11 @@ Here is your amount of available **VOTEs** (VOTEs will be available right after 
  
 If you choose one way vote, all votes will be received by one candidate. Recommended way is to vote for 4 candidates in each region - NA, EU, AE, SH. List of candidates and their proposals you can found here:
 
-	- https://github.com/KomodoPlatform/vote2018
-	- https://dexstats.info/vote2018.php
-	- http://pad.supernet.org/notary-candidates-2018
+
+- https://github.com/KomodoPlatform/vote2018
+- https://dexstats.info/vote2018.php
+- http://pad.supernet.org/notary-candidates-2018
+	
 
 To vote for [Decker](https://github.com/KomodoPlatform/vote2018/blob/master/proposals/decker/README.md) send your votes to `RARcozaVAMZaXJaL6KWMSw297xTYzbDwa3` t-address. Also, available z-address `zc9re8upRd4zZQ7Zs1qm1BnsXtEQ8yhQm3UeWkAugto5FwfgH6NoKTGqKM47K2QNus3CV5h3Kd3wUfzzjctZvj5S3EDFZqH` for advanced users:
 
