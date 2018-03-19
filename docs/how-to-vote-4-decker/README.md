@@ -8,9 +8,11 @@
 
 First of all you'll need to download and install latest version of Agama Wallet for your OS:
 
-	- [Windows](https://artifacts.supernet.org/latest/installer_windows.html)
-	- [Linux](https://artifacts.supernet.org/latest/installer_linux.html)
-	- [MacOS](https://artifacts.supernet.org/latest/installer_osx.html)
+
+- [Windows](https://artifacts.supernet.org/latest/installer_windows.html)
+- [Linux](https://artifacts.supernet.org/latest/installer_linux.html)
+- [MacOS](https://artifacts.supernet.org/latest/installer_osx.html)
+	
 
 Unfortunatelly at `3/19/2018 2:20:56` PM latest Agama have non-critical bug in Notary Elections GUI. When you try to vote with 1-way vote button `Vote` is disabled and when you try to use 4-way vote you will receive "Bad transaction inputs spent error":
 
