@@ -1,5 +1,36 @@
 
-## How to vote for [Decker](https://github.com/KomodoPlatform/vote2018/blob/master/proposals/decker/README.md)? ##
+## How to vote? ##
+
+- [Current available way](#Current_available_way)
+- [Usual way](#Usual_way)
+
+### Current available way ###
+
+First of all you'll need to download and install latest version of Agama Wallet for your OS:
+
+	- [Windows](https://artifacts.supernet.org/latest/installer_windows.html)
+	- [Linux](https://artifacts.supernet.org/latest/installer_linux.html)
+	- [MacOS](https://artifacts.supernet.org/latest/installer_osx.html)
+
+Unfortunatelly at `3/19/2018 2:20:56` PM latest Agama have non-critical bug in Notary Elections GUI. When you try to vote with 1-way vote button `Vote` is disabled and when you try to use 4-way vote you will receive "Bad transaction inputs spent error":
+
+![](./images/howto-06.png)
+
+But don't forget that Agama supports **VOTE2018** as a normal coin (!):
+
+- Start Agama.
+- Press Activate Coin button on Welcome screen.
+- Select `VOTE2018 (Notary Elections)` coin from list and add it in `Lite (SPV) mode`:
+
+![](./images/howto-07.png)
+
+- Send needed amount of VOTEs to your candidate address:
+
+![](./images/howto-08.png)
+
+- Repeat the last step if you want to VOTE for 2, or 4 candidates.
+
+### Usual way ###
 
 - First of all you'll need to download and install latest version of Agama Wallet for your OS:
 
