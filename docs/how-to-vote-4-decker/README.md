@@ -1,8 +1,8 @@
 
 ## How to vote? ##
 
-- [Current available way](#Current_available_way)
-- [Usual way](#Usual_way)
+- [Current available way](#current-available-way)
+- [Usual way](#usual-way)
 
 ### Current available way ###
 
