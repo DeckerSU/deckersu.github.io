@@ -50,8 +50,8 @@ if ($file = fopen("nn_candidates_last.csv", "r")) {
     $line = fgets($file);
     if (($line) && ($line_index!=0)) {
         $candidate = explode(";", $line);    
-        $json_data[$candidate[2]]["label"] = trim($candidate[0]) . " (".trim($candidate[1]).")";
-        $json_data[$candidate[2]]["url"] = trim($candidate[3]);
+        $json_data[trim($candidate[2])]["label"] = trim($candidate[0]) . " (".trim($candidate[1]).")";
+        $json_data[trim($candidate[2])]["url"] = trim($candidate[3]);
         
     }
     $line_index++;
@@ -66,7 +66,7 @@ if ($file = fopen("!results.txt", "r")) {
     $line = fgets($file);
     if (($line) && ($line_index>5)) {
         $candidate = explode(" ", trim($line));    
-        $snapshot_data[$candidate[2]] = trim($candidate[0]);
+        $snapshot_data[trim($candidate[2])] = trim($candidate[0]);
     }
     $line_index++;
     }
