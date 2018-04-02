@@ -1,2 +1,2 @@
 # deckersu.github.io
-deckersu.github.io (test)(testwin)(other)
+deckersu.github.io (test)(testwin)(other)(agama)
