@@ -1673,8 +1673,86 @@ $(document).ready(function() {
 				var t = tx.deserialize(script.val());
 				if (t.sapling) {
 					// signing of sapling txes is different
-					$("#saplingError").removeClass('hidden');
-					$("#signedData").addClass('hidden');
+
+					$("#signBtn").val("Please wait, loading...").attr('disabled',true);
+					// here we should get all vins amounts from explorer (!), because 
+					// deserialized tx doesn't contain any info about value
+					
+					unique_txes = [];
+					for (var i=0; i<t.ins.length; i++) { 
+						if (unique_txes.indexOf(t.ins[i].outpoint.hash) === -1)
+							unique_txes.push(t.ins[i].outpoint.hash);
+					}
+
+					// https://stackoverflow.com/questions/38738614/when-all-ajax-requests-complete
+
+					var root = 'https://kmdexplorer.io/insight-api-komodo/tx/';
+					var p = [];
+					  
+					for (var i=0; i<unique_txes.length; i++) {
+						p.push( $.ajax({url: root + unique_txes[i], method: 'GET',success: function (data) {
+							//console.log(data);
+							for (var j=0; j<data.vout.length; j++) {
+								var value = data.vout[j].value;
+								var outpoint = {};
+								outpoint.hash = data.txid;
+								outpoint.index = data.vout[j].n;
+								// i know, this is ugly code :( 
+								for (var k=0; k<t.ins.length; k++) {
+									if ((t.ins[k].outpoint.hash == outpoint.hash) && (t.ins[k].outpoint.index == outpoint.index)) {
+										t.ins[k].outpoint.value = value;
+									}
+								}
+							}
+						}}));
+					}
+
+					$.when.apply($, p).done(function() {
+						
+						//console.log(t.ins);
+						var signed = decker.signsapling($("#signPrivateKey").val(),$("#sighashType option:selected").val(),$("#signTransaction").val(),t.ins);
+						$("#signedData textarea").val(signed);
+						$("#signedData .txSize").html(t.size());
+						$("#signedData").removeClass('hidden').fadeIn();
+						
+						$("#signBtn").val("Submit").attr('disabled',false);
+					}).fail(function (request) {
+
+						// https://stackoverflow.com/questions/44621310/how-to-handle-multiple-ajax-request-error-using-deferred
+
+						$("#saplingError").html('<span class="glyphicon glyphicon-exclamation-sign"></span> Error requesting vins amounts from explorer ...');
+						$("#saplingError").removeClass('hidden');
+						$("#signedData").addClass('hidden');
+						$("#signBtn").val("Submit").attr('disabled',false);
+						
+					});
+					
+					/*Promise.all(p).then(values => { 
+						console.log( 'Ajax responses after they have all finished: ', values); 
+					  });
+					*/
+
+					/*
+						coinjs.ajax('https://kmdexplorer.io/insight-api-komodo/tx/'+unique_txes[i], function(d,s) {
+							if (s == 200) {
+								var data = $.parseJSON(d);
+								var vout = data.vout;
+								for (var j=0; j<vout.length; j++) {
+									console.log(unique_txes[i], vout[j].n, vout[j].value);
+								}
+
+								
+								//$.each(data, function(i,o){
+								//	console.log(i,o); // key value
+								//});
+								
+								
+							}
+						}, "GET");
+						*/
+
+					//$("#saplingError").removeClass('hidden');
+					//$("#signedData").addClass('hidden');
 				} else {
 					var signed = t.sign(wifkey.val(), $("#sighashType option:selected").val());
 					$("#signedData textarea").val(signed);
