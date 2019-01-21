@@ -635,6 +635,13 @@
 
 								<hr>
 
+								<label>Sapling transaction</label>
+								<p class="checkbox">
+									<label><input type="checkbox" id="txSapling" class="checkbox-inline" checked> Make this a <a href="#" target="_blank">Sapling transaction</a> with txVersion = 4, fOverwintered flag set and nVersionGroupId = 0x892f2085.</label>
+								</p>
+
+								<hr>
+
 								<label>Network</label>
 								<p>The <a href="#settings">settings</a> page can be used to select alternative networks of which you can retrieve your unspent outputs and broadcast a signed transaction into.</p>
 
@@ -1276,6 +1283,10 @@
 
 						<div class="alert alert-danger hidden" id="signedDataError">
 							<span class="glyphicon glyphicon-exclamation-sign"></span> There is a problem with one or more of your inputs, please check and try again
+						</div>
+
+						<div class="alert alert-danger hidden" id="saplingError">
+							<span class="glyphicon glyphicon-exclamation-sign"></span> Sorry, currently we can't sign sapling transactions :(
 						</div>
 
 						<div class="alert alert-success hidden" id="signedData">

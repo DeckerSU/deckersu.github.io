@@ -849,6 +849,9 @@
 					var multi = coinjs.pubkeys2MultisigAddress(pubkeys, r.signaturesRequired);
 					r.address = multi['address'];
 					r.type = 'multisig__'; // using __ for now to differentiat from the other object .type == "multisig"
+					var rs = Crypto.util.bytesToHex(s.buffer);
+					r.redeemscript = rs;
+
 				} else if((s.chunks.length==2) && (s.buffer[0] == 0 && s.buffer[1] == 20)){ // SEGWIT
 					r = {};
 					r.type = "segwit__";
@@ -862,6 +865,8 @@
 					r.pubkey = Crypto.util.bytesToHex(s.chunks[3]);
 					r.checklocktimeverify = coinjs.bytesToNum(s.chunks[0].slice());
 					r.address = coinjs.simpleHodlAddress(r.pubkey, r.checklocktimeverify).address;
+					var rs = Crypto.util.bytesToHex(s.buffer);
+					r.redeemscript = rs;
 					r.type = "hodl__";
 				}
 			} catch(e) {
@@ -941,7 +946,7 @@
 	/* start of transaction functions */
 
 	/* create a new transaction object */
-	coinjs.transaction = function() {
+	coinjs.transaction = function(f_sapling = false) {
 
 		var r = {};
 		r.version = 1;
@@ -951,6 +956,24 @@
 		r.witness = false;
 		r.timestamp = null;
 		r.block = null;
+		r.sapling = false;
+		
+		if (f_sapling) {
+			r.sapling = f_sapling;
+			r.version = 4;
+			r.version = 0x80000000 + r.version; // overwintered
+			/* 	we don't use bitwise operators which expect 32 bit operands and return a 32 bit signed integer.
+				for example 1 << 31 | 4 = -2147483644 and should be 2147483652 (0x80000004), so we use 0x80000000 + r.version,
+				instead of 1 << 31 | r.version.
+			*/
+			r.versiongroupid = 0x892f2085;
+
+			r.nExpiryHeight = 0; /* uint32_t */
+			r.valueBalance = 0; /* uint64_t  */
+			r.nShieldedSpend = 0; /* uint8_t */
+			r.nShieldedOutput = 0; /* uint8_t */
+			r.nJoinSplit = 0; /* uint8_t */
+		}
 
 		/* add an input to a transaction */
 		r.addinput = function(txid, index, script, sequence){
@@ -1593,6 +1616,10 @@
 			var buffer = [];
 			buffer = buffer.concat(coinjs.numToBytes(parseInt(this.version),4));
 
+			if (this.sapling) {
+				buffer = buffer.concat(coinjs.numToBytes(parseInt(this.versiongroupid),4));
+			}
+
 			if(coinjs.isArray(this.witness)){
 				buffer = buffer.concat([0x00, 0x01]);
 			}
@@ -1628,6 +1655,15 @@
 			}
 
 			buffer = buffer.concat(coinjs.numToBytes(parseInt(this.lock_time),4));
+
+			if (this.sapling) {
+				buffer = buffer.concat(coinjs.numToBytes(parseInt(this.nExpiryHeight),4));
+				buffer = buffer.concat(coinjs.numToBytes(parseInt(this.valueBalance),8));
+				buffer = buffer.concat(coinjs.numToBytes(parseInt(this.nShieldedSpend),1));
+				buffer = buffer.concat(coinjs.numToBytes(parseInt(this.nShieldedOutput),1));
+				buffer = buffer.concat(coinjs.numToBytes(parseInt(this.nJoinSplit),1));
+			}
+
 			return Crypto.util.bytesToHex(buffer);
 		}
 
@@ -1666,6 +1702,11 @@
 
 			var obj = new coinjs.transaction();
 			obj.version = readAsInt(4);
+
+			if (obj.version == 0x80000004) { // version=4 and overwintered --> sapling tx
+				obj.sapling = true;
+				obj.versiongroupid = readAsInt(4);
+			}
 
 			if(buffer[pos] == 0x00 && buffer[pos+1] == 0x01){
 				// segwit transaction
@@ -1709,7 +1750,14 @@
 				}
 			}
 
- 			obj.lock_time = readAsInt(4);
+			 obj.lock_time = readAsInt(4);
+			 if (obj.sapling) {
+				 obj.nExpiryHeight = readAsInt(4);
+				 obj.valueBalance = readAsInt(8); // (?) TODO: test for correct reading 8 bytes int
+				 obj.nShieldedSpend = readAsInt(1);
+				 obj.nShieldedOutput = readAsInt(1);
+				 obj.nJoinSplit = readAsInt(1);
+			 }
 			return obj;
 		}
 

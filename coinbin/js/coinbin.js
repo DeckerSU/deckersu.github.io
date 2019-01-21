@@ -616,8 +616,14 @@ $(document).ready(function() {
 	});
 
 	$("#transactionBtn").click(function(){
-		var tx = coinjs.transaction();
-		var estimatedTxSize = 10; // <4:version><1:txInCount><1:txOutCount><4:nLockTime>
+		
+		if($("#txSapling").is(":checked")){
+			var tx = coinjs.transaction(true);
+			var estimatedTxSize = 29; // <4:version><4:versiongroupid><1:txInCount><1:txOutCount><4:nLockTime><4:nExpiryHeight><8:valueBalance><1:nShieldedSpend><1:nShieldedOutput><1:nJoinSplit>
+		} else {
+			var tx = coinjs.transaction();
+			var estimatedTxSize = 10; // <4:version><1:txInCount><1:txOutCount><4:nLockTime>
+		}
 
 		$("#transactionCreate, #transactionCreateStatus").addClass("hidden");
 
@@ -1665,11 +1671,16 @@ $(document).ready(function() {
 			try {
 				var tx = coinjs.transaction();
 				var t = tx.deserialize(script.val());
-
-				var signed = t.sign(wifkey.val(), $("#sighashType option:selected").val());
-				$("#signedData textarea").val(signed);
-				$("#signedData .txSize").html(t.size());
-				$("#signedData").removeClass('hidden').fadeIn();
+				if (t.sapling) {
+					// signing of sapling txes is different
+					$("#saplingError").removeClass('hidden');
+					$("#signedData").addClass('hidden');
+				} else {
+					var signed = t.sign(wifkey.val(), $("#sighashType option:selected").val());
+					$("#signedData textarea").val(signed);
+					$("#signedData .txSize").html(t.size());
+					$("#signedData").removeClass('hidden').fadeIn();
+				}
 			} catch(e) {
 				// console.log(e);
 			}
@@ -1773,7 +1784,9 @@ $(document).ready(function() {
 	$('a[data-toggle="tab"]').on('click', function(e) {
 		e.preventDefault();
 		if(e.target){
+			if (e.target.tagName.toLowerCase() == "a") { // [+] Decker
 			history.pushState(null, null, '#'+$(e.target).attr('href').substr(1));
+			}
 		}
 	});
 
