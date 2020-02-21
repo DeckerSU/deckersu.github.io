@@ -2,11 +2,11 @@
 <html lang="en">
 	<head>
 
-		<title>Komodo Wallet</title>
+		<title>Komodo Coinbin</title>
 
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<meta name="keywords" content="bitcoin, wallet, multisig, multisignature, address, browser, segwit, javascript, js, broadcast, transaction, verify, decode" />
-		<meta name="description" content="A Bitcoin Wallet written in Javascript. Supports Multisig, SegWit, Custom Transactions, nLockTime and more!" />
+		<meta name="keywords" content="komodo, multisig, multisignature, address, browser, javascript, js, broadcast, transaction, verify, decode" />
+		<meta name="description" content="A Komodo tool written in Javascript. Supports Multisig, Custom Transactions, nLockTime and more!" />
 
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,7 +53,9 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a href="#home" class="navbar-brand" id="homeBtn"><img src="images/komodo-logo.png" style="height: 45px;margin-top: -13px;"></a>
+						<a href="#home" class="navbar-brand" id="homeBtn"><img src="images/kmd.png" style="height: 45px;margin-top: -13px;">
+							<span class="symbol">KMD</span>
+						</a>
 					</div>
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav">
@@ -61,7 +63,7 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-plus"></span> New<b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li><a href="#newAddress" data-toggle="tab">Address</a></li>
-									<li><a href="#newSegWit" data-toggle="tab">SegWit Address</a></li>
+									<!--<li><a href="#newSegWit" data-toggle="tab">SegWit Address</a></li>-->
 									<li><a href="#newMultiSig" data-toggle="tab">MultiSig Address</a></li>
 									<li><a href="#newTimeLocked" data-toggle="tab">Time Locked Address</a></li>
 									<li><a href="#newHDaddress" data-toggle="tab">HD Address</a></li>
@@ -71,8 +73,11 @@
 							</li>
 							<li><a href="#verify" data-toggle="tab"><span class="glyphicon glyphicon-ok"></span> Verify</a></li>
 							<li><a href="#sign" data-toggle="tab"><span class="glyphicon glyphicon-pencil"></span> Sign</a></li>
+							<li><a href="https://kmdexplorer.io/tx/send" target="_blank"><span class="glyphicon glyphicon-globe"></span> Broadcast</a></li>
+							<!--
 							<li><a href="#broadcast" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span> Broadcast</a></li>
 							<li><a href="#wallet" data-toggle="tab"><span class="glyphicon glyphicon-briefcase"></span> Wallet</a></li>
+							-->
 							<li><a href="#about" data-toggle="tab"><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
 
 							<li class="hidden"><a href="#settings" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
@@ -95,15 +100,20 @@
 						</div>
 
 						<div class="jumbotron">
-							<h1>Komodo. It's your money!</h1>
-							<p>Be your own bank, take control of your own money and start using Komodo today!</p>
-							<p><a class="btn btn-primary btn-lg" href="#about" role="button">Learn more &raquo;</a></p>
+							<h1>Composable Blockchain Solutions</h1>
+							<p>With Komodo, you can deploy a composable Smart Chain in minutes with seamless interoperability, atomic swaps, and Turing-complete business logic.</p>
+							<p><span>Komodo’s </span><a href="https://komodoplatform.com/antara-framework-rebrand-ama" target="_blank" title="Antara Framework">Antara Framework</a><span> is an adaptable framework for simple, end-to-end blockchain development. Antara makes it easier than ever before to launch a chain, activate modules, and start building blockchain-based applications.</span></p>
+							<p><span>Smart Chains are compatible with Komodo’s </span><a href="https://komodoplatform.com/atomic-swaps" target="_blank" title="Cross-chain atomic swap technology">cross-chain atomic swap technology</a><span>. Next-generation wallets, such as Komodo’s </span><a href="https://atomicdex.io" target="_blank" title="AtomicDEX Wallet">AtomicDEX application</a><span>, allow users to trade assets wallet-to-wallet without any middlemen or third-parties.</span></p>
+							<p><a class="btn btn-primary btn-lg" href="https://komodoplatform.com/" role="button" target="_blank">Learn more &raquo;</a></p>
 						</div>
                         
                         <div class="row">
                             <div class="col-md-12">
-                                    This project is just a fork of <a href="https://github.com/OutCast3k/coinbin/" target="_blank">OutCast3k/coinbin</a> modified by Decker to use with Komodo and <a href="https://kmdexplorer.io" target="_blank">kmdexplorer.io</a> API.
-                            </div>
+							<ul>
+								<li>This tool is a <strong>fork</strong> of <a href="https://github.com/OutCast3k/coinbin/" target="_blank">OutCast3k/coinbin</a> modified to use with Komodo (KMD) and <a href="https://kmdexplorer.io" target="_blank">kmdexplorer.io</a> API.</li>
+								<li>It is still experimental and a work-in-progress. Use at your own risk without warranty of any kind!</li>
+							</ul>
+							</div>
                         </div>
 						
                         <hr>
@@ -121,25 +131,27 @@
 
 							<div class="col-md-4">
 								<h3><span class="glyphicon glyphicon-bitcoin"></span> Raw Transactions</h3>
-								<p><a href="#newTransaction">Create</a>, <a href="#verify">verify</a>, <a href="#sign">sign</a> and <a href="#broadcast">broadcast</a> custom raw transactions online with advanced features and minimal effort!</p>
+								<p><a href="#newTransaction">Create</a>, <a href="#verify">verify</a>, <a href="#sign">sign</a> and <a href="https://kmdexplorer.io/tx/send" target="_blank">broadcast</a> custom raw transactions online with advanced features and minimal effort!</p>
 							</div>
 						</div>
 
 						<div class="row">
+							<!--
 							<div class="col-md-4">
 								<h3><span class="glyphicon glyphicon-piggy-bank"></span> Wallet</h3>
 								<p>Quick access to an <a href="#wallet">online wallet</a> where only you have access to your own private keys &amp; can <a href="#fees">calculate your own fee</a>!</p>
 							</div>
-
+							-->
 							<div class="col-md-4">
 								<h3><span class="glyphicon glyphicon-globe"></span> Addresses</h3>
-								<p>We support <a href="#newAddress">regular addresses</a>, <a href="#newMultiSig">multisig</a>, <a href="#newSegWit">segwit / bech32</a> and stealth all with access to your own private keys!</p>
+								<p>We support <a href="#newAddress">regular addresses</a>, <a href="#newMultiSig">multisig</a> and stealth all with access to your own private keys!</p>
 							</div>
 
 							<div class="col-md-4">
 								<h3><span class="glyphicon glyphicon-wrench"></span>  Development</h3>
-								<p>Use what we've built to write your own projects! See our documention (coming soon), or contribute at <a href="https://github.com/OutCast3k/coinbin/">github</a>.</p>
+								<p>Use what we've built to write your own projects! See our documention (coming soon), or contribute at <a href="https://github.com/DeckerSU/coinbin/tree/komodo">github</a>.</p>
 							</div>
+
 						</div>
 					</div>
 
@@ -1324,38 +1336,21 @@
 					</div>
 
 					<div class="tab-pane tab-content" id="about">
-						<h2>About <small>open source komodo wallet</small></h2>
+						<h2>About <small>open source komodo tool</small></h2>
                        
                             <ul>
-                            <li>This wallet and site is a fork of <a href="https://github.com/OutCast3k/coinbin/" target="_blank">OutCast3k/coinbin</a> project with added KMD (<a href="https://komodoplatform.com/" target="_blank">Komodo</a>) support.</li>
-                            <li>Added Insight based explorer API integration for load UTXOs in create transaction and Open Wallet.</li>
-                            <li>Passphrases of Open Wallet and generated addresses currently are not compatible with Agama Wallet. It means you will have different address in Agama and Open Wallet with the same passphrase.</li>
+                            <li>This tool and site is a fork of <a href="https://github.com/OutCast3k/coinbin/" target="_blank">OutCast3k/coinbin</a> project with added KMD (<a href="https://komodoplatform.com/" target="_blank">Komodo</a>) support.</li>
+							<li>Added Insight based explorer API integration for load UTXOs for create and sign transactions.</li>
+							<li>Signing transactions don't work offline! Bcz since KMD had sapling activated to sign arbitrary raw tx app need to know not only txid and vout num of each vin, but also exact amount and few other info, which can be obtained from blockchain. Online connection to explorer API used only during signing txes to obtain vins info, all other features can be used offline. For more information about Transaction Signature Verification for Sapling plz refer to <a href="https://github.com/zcash/zips/blob/master/zip-0243.rst" target="_blank">ZIP-243</a> document.</li>
                             <li>KomodoPlatform and Komodo Team are not related to this wallet. It's 3rd party developement.</li>
-                            <li>Sources of this project is available on <a href="https://github.com/DeckerSU/coinbin" target="_blank">GitHub</a> in <i>komodo</i> branch.</li>
-                            <li>Please, remember that some things can be buggy, so <strong>don't put in this wallet more coins than you possibly want to lose!</strong></li>
-                            <li>Address for KMD donate: <a href="https://kmdexplorer.ru/address/RTCVGuoSNehKG8YYxcoskC7LK1yZhgvQRV" target="_blank">RTCVGuoSNehKG8YYxcoskC7LK1yZhgvQRV</a></li>
+                            <li>Sources of this project are available on <a href="https://github.com/DeckerSU/coinbin/tree/komodo" target="_blank">GitHub</a> in <i>komodo</i> branch.</li>
+                            <li>Please, remember that some things can be buggy, so <strong>don't use this tool with addresses having more coins than you can allow yourself to lose!</strong></li>
+                            <li>Address for KMD donate: <a href="https://kmdexplorer.io/address/RTCVGuoSNehKG8YYxcoskC7LK1yZhgvQRV" target="_blank">RTCVGuoSNehKG8YYxcoskC7LK1yZhgvQRV</a></li>
                             </ul>
                         
                          <hr />
-                        
-                        <h3>About <small>open source bitcoin wallet</small></h3>
-						<p>Version 1.4</p>
-						<p>Compatible with bitcoin core</p>
-						<p>Github <a href="https://github.com/OutCast3k/coinbin/">https://github.com/OutCast3k/coinbin/</a></p>
-						<p>TOR <a href="http://4zpinp6gdkjfplhk.onion">4zpinp6gdkjfplhk.onion</a></p>
-						<h3>What is Bitcoin?</h3>
-						<p>Bitcoin is a type of digital currency in which encryption techniques are used to regulate the generation of units of currency and verify the transfer of funds, operating independently of a central bank. See <a href="http://www.weusecoins.com/" target="_blank">weusecoins.com</a> for more information.</p>
-						<p>If you are looking to buy some Bitcoin try <a href="https://localbitcoins.com/?ch=173j" target="_blank">LocalBitcoins.com</a>.</p>
-						<h3>Information</h3>
-						<p>Coinb.in is a free and open source project released under the MIT license, originally by <a href="https://bitcointalk.org/index.php?action=profile;u=34834" target="_blank">OutCast3k</a> in 2013. Discussion of the project can be found at <a href="https://bitcointalk.org/index.php?topic=390046" target="_blank">bitcointalk.org</a> during its early testing stages when its primary focus was to develop a proof of concept multisig solution in javascript.</p>
-						<p>Coinb.in is run and funded by the generosity of others in terms of <a href="https://github.com/OutCast3k/coinbin/graphs/contributors" target="_blank">development</a> and hosting.</p>
-						<h3>Privacy</h3>
-						<p>Coinb.in believes strongly in privacy, not only do we support the use of TOR, the site does not collect and store IP or transaction data via our servers nor do we store your bitcoins private key. We do route traffic via cloudflare using an SSL certificate.</p>
-						<h3>Support</h3>
-						<p>We recommend that you first check our <a href="https://status.coinb.in/" target="_blank">service status</a> page and then <a href="https://blog.coinb.in/" target="_blank">blog</a> page which has multiple <a href="https://blog.coinb.in/guides" target="_blank">guides</a>. However if the problem persists you can contact us by emailing support{at}coinb.in.</p>
-						<h3>Donate</h3>
-						<p>Please donate to <a href="bitcoin:3K1oFZMks41C7qDYBsr72SYjapLqDuSYuN">3K1oFZMks41C7qDYBsr72SYjapLqDuSYuN</a> if you found this project useful or want to see more features!</p>
-					</div>
+
+						</div>
 
 					<div class="tab-pane tab-content" id="settings">
 						<h2>Settings <small> making coinb.in even better!</small></h2>
@@ -1459,7 +1454,7 @@
 					</div>
 
 					<br>
-					<p class="text-muted">This page uses javascript to generate your addresses and sign your transactions within your browser, this means we <i>never</i> receive your private keys, this can be independently verified by reviewing the source code on <a href="https://github.com/OutCast3k/coinbin/" target="_blank">github</a>. You can even <a href="https://github.com/OutCast3k/coinbin/archive/master.zip">download</a> this page and host it yourself or run it offline!</p>
+					<p class="text-muted">This page uses javascript to generate your addresses and sign your transactions within your browser, this means we <i>never</i> receive your private keys, this can be independently verified by reviewing the source code on <a href="https://github.com/DeckerSU/coinbin/tree/komodo" target="_blank">github</a>.
 					<br>
 
 				</div>
